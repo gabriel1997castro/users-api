@@ -1,7 +1,7 @@
 import datetime
 from app import db, ma
 
-class User(db.Model):
+class Users(db.Model):
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   username = db.Column(db.String(20), unique=True, nullable=False)
   password = db.Column(db.String(200), nullable=False)
@@ -9,7 +9,7 @@ class User(db.Model):
   email = db.Column(db.String(120), unique=True, nullable=False)
   cpf = db.Column(db.String(11), nullable=False)
   pis = db.Column(db.String(11), nullable=False)
-  address = db.relationship('Address', backref='user', lazy=True, uselist=False)
+  address = db.relationship('Address', backref='users', lazy=True, uselist=False)
   created_on = db.Column(db.DateTime, default=datetime.datetime.now())
 
   def __init__(self, username, password, name, email, cpf, pis):

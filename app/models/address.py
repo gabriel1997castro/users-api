@@ -8,16 +8,16 @@ class Address(db.Model):
   postalCode = db.Column(db.String(10), nullable=False)
   number = db.Column(db.String(20), nullable=False)
   complement = db.Column(db.String(50), nullable=False)
-  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  users_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-  def __init__(self, country, state, city, postalCode, number, complement, user_id):
+  def __init__(self, country, state, city, postalCode, number, complement, users_id):
     self.country = country
     self.state = state
     self.city = city
     self.postalCode = postalCode
     self.number = number
     self.complement = complement
-    self.user_id = user_id
+    self.users_id = users_id
 
 class AddressSchema(ma.Schema):
   class Meta:

@@ -1,7 +1,8 @@
 from werkzeug.security import generate_password_hash
 from app import db
 from flask import request, jsonify
-from ..models.user import User, user_schema, users_schema
+from ..models.users import Users, user_schema, users_schema
+
 
 def post_user():
   username = request.json['username']
@@ -11,7 +12,8 @@ def post_user():
   cpf = request.json['cpf']
   pis = request.json['pis']
   pass_hash = generate_password_hash(password)
-  user = User(username, pass_hash, name, email, cpf, pis)
+  user = Users(username, pass_hash, name, email, cpf, pis)
+
   try:
     db.session.add(user)
     db.session.commit()
@@ -21,6 +23,7 @@ def post_user():
     print(e)
     return jsonify({ 'message': 'unable to create', 'data': {} }), 500
 
+######################################################################################
 def update_user(id):
   username = request.json['username']
   password = request.json['password']
@@ -29,7 +32,7 @@ def update_user(id):
   cpf = request.json['cpf']
   pis = request.json['pis']
   
-  user = User.query.get(id)
+  user = Users.query.get(id)
 
   if not user:
     return jsonify({ 'message': "User don't exit", 'data': {} }), 404
@@ -51,3 +54,21 @@ def update_user(id):
   except Exception as e:
     print('ERRO in UPDATE:', e)
     return jsonify({ 'message': 'unable to create', 'data': {} }), 500
+
+######################################################################################
+def get_users():
+  users = Users.query.all()
+  
+  if users:
+    result = users_schema.dump(users)
+    return jsonify({ 'message': 'successfully fetched', 'data': result })
+  
+  return jsonify({ 'message': 'nothing found', 'data': {} })
+
+######################################################################################
+def get_user(id):
+  user = Users.query.get(id)
+  if user:
+    result = user_schema.dump(user)
+    return jsonify({ 'message': 'successfully fetched', 'data': result }), 201
+  return jsonify({ 'message': 'user not found', 'data': {} }), 404
