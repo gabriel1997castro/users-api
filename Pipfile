@@ -5,6 +5,11 @@ name = "pypi"
 
 [packages]
 flask = "*"
+flask-sqlalchemy = "*"
+marshmallow-sqlalchemy = "*"
+flask-marshmallow = "*"
+marshmallow = "*"
+mysqlclient = "*"
 
 [dev-packages]
 autopep8 = "*"
