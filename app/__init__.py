@@ -10,4 +10,5 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 
+from .models import user, address
 from .routes import routes
