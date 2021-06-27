@@ -1,5 +1,5 @@
 from app import app
-from ..views import users
+from ..views import users, helper
 
 @app.route('/', methods=['GET'])
 def root():
@@ -24,3 +24,7 @@ def get_user(id):
 @app.route('/users/<id>', methods=['DELETE'])
 def delete_user(id):
   return users.delete_user(id)
+
+@app.route('/auth', methods=['POST'])
+def authenticate():
+  return helper.auth()
