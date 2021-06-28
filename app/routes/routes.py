@@ -3,8 +3,8 @@ from ..views import users, helper
 
 @app.route('/', methods=['GET'])
 @helper.token_required
-def root():
-  return({ 'message': 'Hello world!' })
+def root(current_user):
+  return({ 'message': 'Hello world!', "user": users.user_schema.dump(current_user) })
 
 @app.route('/users', methods=['POST'])
 def post_user():
