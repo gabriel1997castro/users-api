@@ -11,13 +11,13 @@ import jwt
 def token_required(f):
   @wraps(f)
   def decorated(*args, **kwargs):
-    token = request.args.get('token')
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+      token = auth_header.split(" ")[1]
     if not token:
       return jsonify({ 'message': 'token is missing', 'data': {} }), 401
     try:
-      print('show the secret:', app.config['SECRET_KEY'])
       data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
-      print('show the data', data)
       current_user = user_by_username(username=data['username'])
     except:
       return jsonify({ 'message': 'token is invalid or expired', 'data': {} }), 401
