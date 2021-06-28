@@ -1,5 +1,5 @@
 from app import app
-from ..views import users, helper
+from ..views import users, helper, address
 
 @app.route('/', methods=['GET'])
 @helper.token_required
@@ -29,3 +29,8 @@ def delete_user(id):
 @app.route('/auth', methods=['POST'])
 def authenticate():
   return helper.auth()
+
+@app.route('/address', methods=['POST'])
+@helper.token_required
+def post_address(current_user):
+  return address.post_address(current_user)

@@ -1,7 +1,7 @@
 from app import db, ma
 
 class Address(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   country = db.Column(db.String(50), nullable=False)
   state = db.Column(db.String(50), nullable=False)
   city = db.Column(db.String(50), nullable=False)
@@ -22,3 +22,6 @@ class Address(db.Model):
 class AddressSchema(ma.Schema):
   class Meta:
     fields = ('id', 'country', 'state', 'city', 'postalCode', 'number', 'complement', 'user_id')
+
+address_schema = AddressSchema()
+addresses_schema = AddressSchema(many=True)
