@@ -2,6 +2,7 @@ from app import app
 from ..views import users, helper
 
 @app.route('/', methods=['GET'])
+@helper.token_required
 def root():
   return({ 'message': 'Hello world!' })
 
