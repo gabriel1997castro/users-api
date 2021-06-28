@@ -12,6 +12,7 @@ def token_required(f):
   @wraps(f)
   def decorated(*args, **kwargs):
     auth_header = request.headers.get('Authorization')
+    token = None
     if auth_header:
       token = auth_header.split(" ")[1]
     if not token:
