@@ -23,3 +23,6 @@ def post_address(current_user):
   except Exception as e:
     print(e)
     return jsonify({ 'message': 'unable to create', 'data': {} }), 500
+
+def get_user_address(user):
+  return jsonify({ 'message': 'successfully fetched', 'data': address_schema.dump(user.address) })

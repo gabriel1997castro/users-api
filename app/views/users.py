@@ -2,6 +2,7 @@ from werkzeug.security import generate_password_hash
 from app import db
 from flask import request, jsonify
 from ..models.users import Users, user_schema, users_schema
+from ..models.address import address_schema
 
 
 
@@ -76,7 +77,6 @@ def get_user(id):
     result = user_schema.dump(user)
     return jsonify({ 'message': 'successfully fetched', 'data': result }), 201
   return jsonify({ 'message': 'user not found', 'data': {} }), 404
-
 
 
 def delete_user(id):

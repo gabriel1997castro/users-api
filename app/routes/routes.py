@@ -34,3 +34,8 @@ def authenticate():
 @helper.token_required
 def post_address(current_user):
   return address.post_address(current_user)
+
+@app.route('/address', methods=['GET'])
+@helper.token_required
+def get_address(current_user):
+  return address.get_user_address(current_user)

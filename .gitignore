@@ -89,3 +89,6 @@ ENV/
 .ropeproject
 
 *.db
+
+__pycache__/
+*.pyc
