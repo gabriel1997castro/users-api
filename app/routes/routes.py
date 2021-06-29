@@ -11,20 +11,24 @@ def post_user():
   return users.post_user()
 
 @app.route('/users/<id>', methods=['PUT'])
-def update_user(id):
-  return users.update_user(id)
+@helper.token_required
+def update_user(current_user, id):
+  return users.update_user(current_user, id)
 
 @app.route('/users', methods=['GET'])
-def get_users():
-  return users.get_users()
+@helper.token_required
+def get_users(current_user):
+  return users.get_users(current_user)
 
 @app.route('/users/<id>', methods=['GET'])
-def get_user(id):
-  return users.get_user(id)
+@helper.token_required
+def get_user(current_user, id):
+  return users.get_user(current_user, id)
 
 @app.route('/users/<id>', methods=['DELETE'])
-def delete_user(id):
-  return users.delete_user(id)
+@helper.token_required
+def delete_user(current_user, id):
+  return users.delete_user(current_user, id)
 
 @app.route('/auth', methods=['POST'])
 def authenticate():

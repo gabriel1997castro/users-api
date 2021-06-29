@@ -27,7 +27,7 @@ def post_user():
 
 
 
-def update_user(id):
+def update_user(current_user, id):
   username = request.json['username']
   password = request.json['password']
   name = request.json['name']
@@ -60,7 +60,7 @@ def update_user(id):
 
 
 
-def get_users():
+def get_users(current_user):
   users = Users.query.all()
   
   if users:
@@ -71,7 +71,7 @@ def get_users():
 
 
 
-def get_user(id):
+def get_user(current_user, id):
   user = Users.query.get(id)
   if user:
     result = user_schema.dump(user)
@@ -79,7 +79,7 @@ def get_user(id):
   return jsonify({ 'message': 'user not found', 'data': {} }), 404
 
 
-def delete_user(id):
+def delete_user(current_user, id):
   user = Users.query.get(id)
   if not user:
     return jsonify({ 'message': 'user not found', 'data': {} }), 404
