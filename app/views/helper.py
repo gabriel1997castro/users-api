@@ -37,7 +37,7 @@ def auth():
 
   if user and check_password_hash(user.password, auth.password):
     SECRET_KEY = app.config['SECRET_KEY']
-    token = jwt.encode({ 'username': user.username, 'exp': datetime.datetime.now() + datetime.timedelta(hours=12) }, SECRET_KEY, algorithm="HS256")
+    token = jwt.encode({ 'username': user.email, 'exp': datetime.datetime.now() + datetime.timedelta(hours=12) }, SECRET_KEY, algorithm="HS256")
     return jsonify({'message': 'Validated successfully', 'token': token, 'exp': datetime.datetime.now() + datetime.timedelta(hours=12)})
   
   return jsonify({ 'message': 'could not verify', 'WWW-Authenticate': 'Basic auth="Login required"' }), 401
